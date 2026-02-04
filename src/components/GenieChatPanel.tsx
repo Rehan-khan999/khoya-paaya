@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -58,6 +58,7 @@ export const GenieChatPanel = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [isItemDialogOpen, setIsItemDialogOpen] = useState(false);
+  const [scrollMountKey, setScrollMountKey] = useState(0);
   
   // Drag state
   const [isDragging, setIsDragging] = useState(false);
@@ -187,10 +188,12 @@ export const GenieChatPanel = () => {
     const handleEmerged = () => {
       console.log('GenieChatPanel: Received EMERGED event');
       setIsVisible(true);
+      // Force scroll container remount after panel is visible
       setTimeout(() => {
+        setScrollMountKey(prev => prev + 1);
         triggerPresentChat(true);
         inputRef.current?.focus();
-      }, 100);
+      }, 50);
     };
 
     const handleHidden = () => {
@@ -220,6 +223,17 @@ export const GenieChatPanel = () => {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
     }
   }, [messages, isLoading]);
+
+  // Force scroll container layout recalculation when visible
+  useLayoutEffect(() => {
+    if (isVisible && scrollAreaRef.current) {
+      // Force browser to recalculate layout
+      const scrollDiv = scrollAreaRef.current;
+      scrollDiv.style.overflow = 'hidden';
+      void scrollDiv.offsetHeight; // Trigger reflow
+      scrollDiv.style.overflow = 'auto';
+    }
+  }, [isVisible, scrollMountKey]);
 
   // Clear conversation
   const handleClearConversation = () => {
@@ -338,13 +352,13 @@ export const GenieChatPanel = () => {
         }}
       >
         {/* Glassmorphism panel */}
-        <div className="relative overflow-hidden rounded-2xl border-2 border-cyan-400/30 bg-gradient-to-br from-slate-900/95 via-indigo-950/90 to-purple-950/95 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.6),0_0_60px_rgba(34,211,238,0.25)]">
+        <div className="relative rounded-2xl border-2 border-cyan-400/30 bg-gradient-to-br from-slate-900/95 via-indigo-950/90 to-purple-950/95 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.6),0_0_60px_rgba(34,211,238,0.25)]">
           {/* Decorative edges */}
           <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-b from-amber-700/20 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-t from-amber-700/20 to-transparent" />
           
           {/* Cosmic stars overlay */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute inset-0 overflow-clip pointer-events-none">
             <div className="absolute w-1 h-1 bg-white rounded-full animate-pulse" style={{ top: '10%', left: '15%' }} />
             <div className="absolute w-0.5 h-0.5 bg-cyan-200 rounded-full animate-pulse" style={{ top: '25%', right: '20%', animationDelay: '0.4s' }} />
             <div className="absolute w-1 h-1 bg-purple-200 rounded-full animate-pulse" style={{ bottom: '30%', left: '10%', animationDelay: '0.9s' }} />
@@ -406,6 +420,7 @@ export const GenieChatPanel = () => {
 
           {/* Messages */}
           <div 
+            key={scrollMountKey}
             ref={scrollAreaRef}
             className="h-[280px] p-2.5 overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
           >
