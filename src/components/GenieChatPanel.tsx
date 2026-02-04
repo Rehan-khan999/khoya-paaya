@@ -347,7 +347,7 @@ export const GenieChatPanel = () => {
           top: `${position.y}px`,
           width: `${panelWidth}px`,
           maxHeight: `${panelHeight}px`,
-          zIndex: 50,
+          zIndex: 70, // Higher than ThreeCanvas (60) so scroll events work
           transform: 'none', // Use left/top for positioning
         }}
       >
