@@ -89,15 +89,13 @@ export const GenieChatPanel = () => {
   const panelWidth = 340;
   const panelHeight = 420;
 
-  // Initialize panel position - adjacent to genie on its right side
-  // The genie canvas is ~200px wide at bottom-right, so position panel just to its right
+  // Initialize panel position - to the right of the genie character
   useEffect(() => {
     const initPosition = () => {
-      const genieCanvasWidth = 200; // Approximate width of the genie canvas area
-      const gap = 10; // Small gap between genie and panel
-      // Position panel to the right of the genie (genie is at bottom-right, panel is adjacent)
-      const initialX = window.innerWidth - genieCanvasWidth - panelWidth - gap;
-      const initialY = window.innerHeight - panelHeight - 40; // Align with bottom
+      const gap = 20; // Gap from right edge
+      // Position panel at the right edge, adjacent to genie on genie's right side
+      const initialX = window.innerWidth - panelWidth - gap;
+      const initialY = window.innerHeight - panelHeight - 60; // Align with bottom
       setPosition({ x: initialX, y: initialY });
     };
     initPosition();
