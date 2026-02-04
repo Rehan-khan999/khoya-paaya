@@ -57,6 +57,7 @@ const clearGenieMemory = () => {
 
 export const GenieChatPanel = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [scrollKey, setScrollKey] = useState(0); // Force ScrollArea re-mount
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [isItemDialogOpen, setIsItemDialogOpen] = useState(false);
   
@@ -188,6 +189,8 @@ export const GenieChatPanel = () => {
     const handleEmerged = () => {
       console.log('GenieChatPanel: Received EMERGED event');
       setIsVisible(true);
+      // Force ScrollArea to re-mount for proper initialization
+      setScrollKey(prev => prev + 1);
       setTimeout(() => {
         triggerPresentChat(true);
         inputRef.current?.focus();
@@ -409,7 +412,7 @@ export const GenieChatPanel = () => {
           </div>
 
           {/* Messages */}
-          <ScrollArea className="h-[280px] p-2.5" ref={scrollAreaRef}>
+          <ScrollArea key={scrollKey} className="h-[280px] p-2.5 overflow-auto" ref={scrollAreaRef}>
             <div className="space-y-2.5">
               {messages.map((message, index) => (
                 <div
