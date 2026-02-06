@@ -1,60 +1,79 @@
 
 
-# Plan: Restore Scrollbar Design & Adjust Panel Position
+## Google OAuth 403 Error - Complete Fix
 
-## What You Want
+The 403 error you're seeing ("We're sorry, but you do not have access to this document") is NOT a code issue - it's a Google Cloud Console configuration issue. Based on my research, there are **2-3 missing configurations** that need to be added.
 
-1. **Restore the previous scrollbar design** - The nice styled Radix UI scrollbar instead of the basic native scrollbar
-2. **Move chat panel 40px to the right** - Closer to the genie, but only if scrolling still works
+---
 
-## Why This Will Work
+## Step-by-Step Fix (No Code Changes Needed)
 
-The scrolling issue was caused by the Three.js canvas (z-index 60) being **above** the chat panel (z-index 50), blocking scroll events. Since we fixed this by raising the chat panel to z-index 70, the panel is now **on top of the canvas** and will receive scroll events regardless of position.
+### Step 1: Enable the Google People API (MOST IMPORTANT)
 
-Moving 40px right is safe because the panel's z-index is higher than the canvas.
+This is the **most common cause** of the 403 error. Supabase needs this API to fetch user profile data.
 
-## Changes
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Select your project
+3. Navigate to **APIs & Services → Library**
+4. Search for **"Google People API"**
+5. Click **Enable**
 
-### File: `src/components/GenieChatPanel.tsx`
+---
 
-**1. Restore Radix UI ScrollArea import:**
-```typescript
-import { ScrollArea } from '@/components/ui/scroll-area';
-```
+### Step 2: Add Supabase URL to Authorized JavaScript Origins
 
-**2. Update position calculation (line 95):**
-```typescript
-// Change genieAreaWidth from 418 to 378 (40px closer to genie)
-const genieAreaWidth = 378;
-```
+You currently only have the Lovable URL. You also need the Supabase URL.
 
-**3. Replace native div scroll with Radix ScrollArea:**
+1. Go to **APIs & Services → Credentials**
+2. Click on your OAuth 2.0 Client ID
+3. Under **Authorized JavaScript origins**, add BOTH:
+   - `https://id-preview--00f58f88-09a0-4879-bf6c-18d6c51f378a.lovable.app` (you already have this)
+   - `https://dmarkaigzovaqwpigtxe.supabase.co` (ADD THIS)
 
-Replace the current native scrollable div:
-```typescript
-<div 
-  key={scrollMountKey}
-  ref={scrollAreaRef}
-  className="h-[280px] p-2.5 overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
->
-```
+---
 
-With the styled Radix ScrollArea:
-```typescript
-<ScrollArea 
-  key={scrollMountKey}
-  className="h-[280px] p-2.5"
-  ref={scrollAreaRef}
->
-```
+### Step 3: Add Authorized Domain to Consent Screen
 
-**4. Keep the layout reflow logic** to ensure the ScrollArea initializes properly when the panel becomes visible.
+1. Go to **APIs & Services → OAuth consent screen**
+2. Scroll to **Authorized domains**
+3. Add: `supabase.co`
+4. Save changes
 
-## Summary
+---
 
-| Change | Before | After |
-|--------|--------|-------|
-| Scrollbar style | Native CSS thin scrollbar | Radix UI styled scrollbar |
-| Panel distance from genie | 418px gap | 378px gap (40px closer) |
-| Scrolling | Works (z-index 70) | Will still work (z-index 70) |
+### Step 4: Wait and Test
+
+1. Wait **2-5 minutes** for Google's settings to propagate
+2. **Clear browser cookies** or use an **Incognito window**
+3. Try Google Sign-In again
+
+---
+
+## Configuration Checklist
+
+| Setting | Location | Required Value |
+|---------|----------|----------------|
+| Google People API | APIs & Services → Library | **Enabled** |
+| JS Origin #1 | OAuth Client → JS Origins | `https://id-preview--00f58f88-09a0-4879-bf6c-18d6c51f378a.lovable.app` |
+| JS Origin #2 | OAuth Client → JS Origins | `https://dmarkaigzovaqwpigtxe.supabase.co` |
+| Redirect URI | OAuth Client → Redirect URIs | `https://dmarkaigzovaqwpigtxe.supabase.co/auth/v1/callback` |
+| Authorized Domain | OAuth Consent Screen | `supabase.co` |
+
+---
+
+## Why This Happens
+
+The OAuth flow works like this:
+1. Your app redirects to Google
+2. Google redirects to Supabase (`supabase.co/auth/v1/callback`)
+3. Supabase calls the Google People API to get user info
+4. Supabase redirects back to your app
+
+If the People API is not enabled OR supabase.co isn't authorized, step 3 fails with a 403.
+
+---
+
+## No Code Changes Required
+
+The implementation code is correct. This is purely a Google Cloud Console configuration issue.
 
