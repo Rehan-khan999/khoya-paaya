@@ -11,29 +11,27 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    //VitePWA({
-      //registerType: 'autoUpdate',
-      //includeAssets: ['favicon.ico'],
-      //strategies: 'injectManifest',
-      //srcDir: 'src',
-      //filename: 'sw.js',
-      //manifest: {
-        //name: 'FindIt - Lost & Found',
-        //short_name: 'FindIt',
-        //theme_color: '#0ea5e9',
-        //background_color: '#ffffff',
-       // display: 'standalone',
-        //scope: '/',
-       // start_url: '/',
-        //icons: [
-          //{
-            //src: '/icons/icon-512.png',
-            //sizes: '512x512',
-            //type: 'image/png',
-            //purpose: 'any maskable'
-          //}
-        //]
-      //},
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.ico'],
+      strategies: 'generateSW',
+      manifest: {
+        name: 'FindIt - Lost & Found',
+        short_name: 'FindIt',
+        theme_color: '#0ea5e9',
+        background_color: '#ffffff',
+        display: 'standalone',
+        scope: '/',
+        start_url: '/',
+        icons: [
+          {
+            src: '/icons/icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable'
+          }
+        ]
+      },
       // PWA caching config: exclude heavy WASM and raise size limits for injectManifest
       //injectManifest: {
         //maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5 MiB for JS chunks
