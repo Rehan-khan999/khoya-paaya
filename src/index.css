@@ -600,6 +600,71 @@
 }
 
 /* Genie Lamp Overlay Animations */
+
+/* ---- Sparkles ---- */
+.genie-sparkles-layer {
+  position: absolute;
+  inset: 0;
+  transition: filter 0.4s ease;
+}
+.genie-sparkles-bright {
+  filter: brightness(1.6);
+}
+.genie-sparkle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0;
+  animation: genieSparkleFloat linear infinite;
+}
+@keyframes genieSparkleFloat {
+  0% { opacity: 0; transform: translateY(0) scale(0.5); }
+  15% { opacity: 0.8; transform: translateY(-8px) scale(1); }
+  50% { opacity: 0.4; transform: translateY(-30px) scale(0.8); }
+  85% { opacity: 0.7; transform: translateY(-50px) scale(1.1); }
+  100% { opacity: 0; transform: translateY(-70px) scale(0.4); }
+}
+
+/* ---- Glow Aura ---- */
+.genie-aura {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34,211,238,0.35) 0%, rgba(34,211,238,0.18) 40%, transparent 70%);
+  filter: blur(25px);
+  animation: genieAuraBreathe 3s ease-in-out infinite;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.genie-aura-hover {
+  transform: scale(1.15);
+  opacity: 1;
+}
+@keyframes genieAuraBreathe {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+/* ---- Instruction Text ---- */
+.genie-instruction-text {
+  position: absolute;
+  bottom: 210px;
+  right: 50px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #22d3ee;
+  text-shadow: 0 0 10px rgba(34,211,238,0.6), 0 2px 4px rgba(0,0,0,0.5);
+  animation: genieInstructionFade 4s ease-in-out infinite;
+  white-space: nowrap;
+}
+@keyframes genieInstructionFade {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ---- Existing Hint Text ---- */
 .genie-hint-text {
   position: absolute;
   bottom: 180px;
@@ -618,6 +683,7 @@
   50% { transform: translateY(-12px); }
 }
 
+/* ---- Existing Pulse Ring ---- */
 .genie-pulse-ring {
   position: absolute;
   bottom: 40px;
@@ -635,6 +701,7 @@
   100% { transform: scale(1.7); opacity: 0; }
 }
 
+/* ---- Existing Glow Layer ---- */
 .genie-glow-layer {
   position: absolute;
   bottom: 50px;
@@ -650,6 +717,23 @@
 @keyframes genieGlowPulse {
   0%, 100% { opacity: 0.5; }
   50% { opacity: 0.9; }
+}
+
+/* ---- Click Pulse ---- */
+.genie-click-pulse {
+  position: absolute;
+  bottom: 60px;
+  right: 55px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #22d3ee;
+  box-shadow: 0 0 20px rgba(34,211,238,0.5);
+  animation: genieClickRing 600ms ease-out forwards;
+}
+@keyframes genieClickRing {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(2.5); opacity: 0; }
 }
 
 /* Genie Whisper Effect */
