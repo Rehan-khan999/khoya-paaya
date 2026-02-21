@@ -669,14 +669,13 @@
   position: absolute;
   bottom: 180px;
   right: 20px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #22d3ee;
-  text-shadow: 0 0 12px rgba(34,211,238,0.8), 0 0 4px rgba(34,211,238,0.4), 0 1px 3px rgba(0,0,0,0.5);
+  font-size: 16px;
+  font-weight: 700;
+  color: #f59e0b;
+  text-shadow: 0 0 20px rgba(245,158,11,1), 0 0 8px rgba(245,158,11,0.7), 0 2px 6px rgba(0,0,0,0.8);
   animation: genieHintFloat 3s ease-in-out infinite;
   opacity: 1;
   white-space: nowrap;
-  letter-spacing: 0.3px;
 }
 
 @keyframes genieHintFloat {
@@ -692,14 +691,14 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  border: 2px solid rgba(34,211,238,0.6);
-  box-shadow: 0 0 20px rgba(34,211,238,0.35), inset 0 0 12px rgba(34,211,238,0.15);
-  animation: geniePulse 2.2s infinite;
+  border: 3px solid rgba(245,158,11,0.85);
+  box-shadow: 0 0 24px rgba(245,158,11,0.6), inset 0 0 16px rgba(245,158,11,0.2);
+  animation: geniePulse 2s infinite;
 }
 
 @keyframes geniePulse {
-  0% { transform: scale(1); opacity: 0.9; }
-  100% { transform: scale(1.8); opacity: 0; }
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.7); opacity: 0; }
 }
 
 /* ---- Glow Layer ---- */
@@ -710,8 +709,8 @@
   width: 110px;
   height: 110px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(34,211,238,0.4) 0%, rgba(34,211,238,0.15) 50%, transparent 70%);
-  filter: blur(16px);
+  background: radial-gradient(circle, rgba(245,158,11,0.5) 0%, rgba(245,158,11,0.2) 50%, transparent 70%);
+  filter: blur(18px);
   animation: genieGlowPulse 3s ease-in-out infinite;
 }
 
