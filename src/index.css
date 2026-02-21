@@ -664,26 +664,27 @@
   50% { opacity: 1; }
 }
 
-/* ---- Existing Hint Text ---- */
+/* ---- Hint Text ---- */
 .genie-hint-text {
   position: absolute;
   bottom: 180px;
-  right: 40px;
-  font-size: 16px;
-  font-weight: 700;
-  color: #f59e0b;
-  text-shadow: 0 0 18px rgba(245,158,11,0.9), 0 0 6px rgba(245,158,11,0.5), 0 2px 4px rgba(0,0,0,0.7);
+  right: 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #22d3ee;
+  text-shadow: 0 0 12px rgba(34,211,238,0.8), 0 0 4px rgba(34,211,238,0.4), 0 1px 3px rgba(0,0,0,0.5);
   animation: genieHintFloat 3s ease-in-out infinite;
   opacity: 1;
   white-space: nowrap;
+  letter-spacing: 0.3px;
 }
 
 @keyframes genieHintFloat {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-12px); }
+  50% { transform: translateY(-10px); }
 }
 
-/* ---- Existing Pulse Ring ---- */
+/* ---- Pulse Ring ---- */
 .genie-pulse-ring {
   position: absolute;
   bottom: 40px;
@@ -691,32 +692,32 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  border: 2.5px solid rgba(245,158,11,0.7);
-  box-shadow: 0 0 16px rgba(245,158,11,0.4);
-  animation: geniePulse 2s infinite;
+  border: 2px solid rgba(34,211,238,0.6);
+  box-shadow: 0 0 20px rgba(34,211,238,0.35), inset 0 0 12px rgba(34,211,238,0.15);
+  animation: geniePulse 2.2s infinite;
 }
 
 @keyframes geniePulse {
-  0% { transform: scale(1); opacity: 0.85; }
-  100% { transform: scale(1.7); opacity: 0; }
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(1.8); opacity: 0; }
 }
 
-/* ---- Existing Glow Layer ---- */
+/* ---- Glow Layer ---- */
 .genie-glow-layer {
   position: absolute;
-  bottom: 50px;
-  right: 45px;
-  width: 100px;
-  height: 100px;
+  bottom: 45px;
+  right: 40px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(245,158,11,0.35), transparent 70%);
-  filter: blur(20px);
-  animation: genieGlowPulse 3s infinite;
+  background: radial-gradient(circle, rgba(34,211,238,0.4) 0%, rgba(34,211,238,0.15) 50%, transparent 70%);
+  filter: blur(16px);
+  animation: genieGlowPulse 3s ease-in-out infinite;
 }
 
 @keyframes genieGlowPulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 0.9; }
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
 /* ---- Click Pulse ---- */
