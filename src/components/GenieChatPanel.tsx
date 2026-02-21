@@ -220,8 +220,12 @@ export const GenieChatPanel = () => {
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+    // ScrollArea's actual scrollable viewport is [data-radix-scroll-area-viewport]
+    const viewport = scrollAreaRef.current?.closest('[data-radix-scroll-area-viewport]');
+    if (viewport) {
+      setTimeout(() => {
+        viewport.scrollTop = viewport.scrollHeight;
+      }, 50);
     }
   }, [messages, isLoading]);
 
