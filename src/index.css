@@ -763,6 +763,63 @@
    GENIE LAMP ENVIRONMENT EFFECTS
    ============================================ */
 
+/* Lamp container glow portal */
+.genie-env-container::before {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 40px;
+  background: radial-gradient(ellipse at center, rgba(0, 230, 200, 0.7) 0%, rgba(0, 200, 180, 0.3) 50%, transparent 75%);
+  border-radius: 50%;
+  animation: lampGlow 2.5s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Outer ring ripple */
+.genie-env-container::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  height: 55px;
+  background: radial-gradient(ellipse at center, rgba(0, 230, 200, 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: lampGlow 2.5s ease-in-out infinite alternate-reverse;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes lampGlow {
+  from { opacity: 0.6; transform: translateX(-50%) scaleX(1); }
+  to   { opacity: 1;   transform: translateX(-50%) scaleX(1.12); }
+}
+
+/* Sparkle particles */
+.lamp-sparkle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: white;
+  pointer-events: none;
+  animation: sparkleFloat var(--duration, 3s) ease-in-out infinite var(--delay, 0s);
+  opacity: 0;
+  z-index: 10;
+}
+
+@keyframes sparkleFloat {
+  0%   { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  30%  { opacity: 1; }
+  70%  { opacity: 0.8; }
+  100% { opacity: 0; transform: translate(var(--tx, 20px), var(--ty, -60px)) scale(1.2); }
+}
+
 /* Background Aura - large radial glow behind lamp */
 .genie-env-bg-aura {
   position: absolute;
@@ -781,31 +838,6 @@
   50% { opacity: 0.35; transform: scale(1.05); }
 }
 
-/* Sparkle Field */
-.genie-env-sparkle-field {
-  position: absolute;
-  inset: 0;
-}
-
-.genie-env-sparkle {
-  position: absolute;
-  border-radius: 50%;
-  animation: genieEnvSparkleFloat linear infinite;
-}
-
-@keyframes genieEnvSparkleFloat {
-  0% { opacity: 0; transform: translateY(0) scale(0.3); }
-  10% { opacity: var(--sparkle-opacity, 0.6); transform: translateY(-5px) scale(1); }
-  40% { opacity: calc(var(--sparkle-opacity, 0.6) * 0.7); transform: translateY(-30px) scale(0.8); }
-  70% { opacity: var(--sparkle-opacity, 0.6); transform: translateY(-55px) scale(1.1); }
-  100% { opacity: 0; transform: translateY(-80px) scale(0.2); }
-}
-
-/* Star-shape sparkle using clip-path for some particles */
-.genie-env-sparkle:nth-child(4n) {
-  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-}
-
 /* Spout Mist Glow */
 .genie-env-spout-mist {
   position: absolute;
@@ -821,54 +853,4 @@
 @keyframes genieEnvMistFlow {
   0%, 100% { opacity: 0.3; transform: translateY(0) scaleY(1); }
   50% { opacity: 0.5; transform: translateY(-10px) scaleY(1.1); }
-}
-
-/* Ground Ring Container */
-.genie-env-ground-ring {
-  position: absolute;
-  bottom: 25px;
-  right: 25px;
-  width: 200px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Inner Ring - thin bright line */
-.genie-env-ring-inner {
-  position: absolute;
-  width: 180px;
-  height: 50px;
-  border-radius: 50%;
-  border: 2px solid rgba(34,211,238,0.5);
-  box-shadow: 0 0 12px rgba(34,211,238,0.4), inset 0 0 8px rgba(34,211,238,0.15);
-  animation: genieEnvRingSpin 20s linear infinite;
-}
-
-/* Outer Ring - soft glow */
-.genie-env-ring-outer {
-  position: absolute;
-  width: 210px;
-  height: 60px;
-  border-radius: 50%;
-  border: 1px solid rgba(45,212,191,0.25);
-  box-shadow: 0 0 30px rgba(34,211,238,0.3), 0 0 60px rgba(45,212,191,0.15);
-  animation: genieEnvRingSpin 25s linear infinite reverse;
-}
-
-@keyframes genieEnvRingSpin {
-  0% { transform: rotateZ(0deg); }
-  100% { transform: rotateZ(360deg); }
-}
-
-/* Ground ring breathing */
-.genie-env-ring-inner,
-.genie-env-ring-outer {
-  animation: genieEnvRingSpin 20s linear infinite, genieEnvRingBreathe 3s ease-in-out infinite;
-}
-
-@keyframes genieEnvRingBreathe {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 0.85; }
 }
