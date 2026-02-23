@@ -766,9 +766,8 @@
 /* Ground ripple rings beneath the lamp */
 .lamp-ground-rings {
   position: absolute;
-  bottom: -18px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 15px;
+  right: 95px;
   width: 220px;
   height: 55px;
   pointer-events: none;
@@ -783,8 +782,8 @@
   top: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  border: 1.5px solid rgba(0, 230, 210, 0.75);
-  box-shadow: 0 0 8px 2px rgba(0, 230, 210, 0.4), inset 0 0 8px 2px rgba(0, 230, 210, 0.15);
+  border: 2px solid rgba(0, 230, 210, 1);
+  box-shadow: 0 0 14px 4px rgba(0, 230, 210, 0.7), 0 0 28px 8px rgba(0, 230, 210, 0.3), inset 0 0 10px 3px rgba(0, 230, 210, 0.25);
   animation: groundRipple 3s ease-out infinite;
 }
 
@@ -808,8 +807,8 @@
   width: 36%;
   height: 36%;
   border-radius: 50%;
-  border: 1.5px solid rgba(0, 230, 210, 0.9);
-  box-shadow: 0 0 10px 3px rgba(0, 230, 210, 0.5), inset 0 0 6px 1px rgba(0, 230, 210, 0.2);
+  border: 2px solid rgba(0, 230, 210, 1);
+  box-shadow: 0 0 14px 4px rgba(0, 230, 210, 0.8), 0 0 28px 8px rgba(0, 230, 210, 0.35), inset 0 0 8px 2px rgba(0, 230, 210, 0.3);
   animation: groundRipple 3s ease-out infinite;
   animation-delay: 1.2s;
 }
@@ -817,26 +816,41 @@
 /* Central glow fill beneath lamp */
 .lamp-ground-glow {
   position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 160px;
-  height: 35px;
-  background: radial-gradient(ellipse at center, rgba(0, 230, 210, 0.45) 0%, rgba(0, 200, 185, 0.15) 55%, transparent 75%);
+  bottom: 20px;
+  right: 95px;
+  width: 180px;
+  height: 40px;
+  background: radial-gradient(ellipse at center, rgba(0, 230, 210, 0.7) 0%, rgba(0, 200, 185, 0.35) 55%, transparent 75%);
   border-radius: 50%;
   animation: glowPulse 2.5s ease-in-out infinite alternate;
   pointer-events: none;
   z-index: 0;
 }
 
+/* Light mode: even brighter rings */
+:root .lamp-ground-rings::before,
+:root .lamp-ground-rings::after {
+  border-color: rgba(0, 200, 190, 1);
+  box-shadow: 0 0 18px 6px rgba(0, 200, 190, 0.8), 0 0 36px 12px rgba(0, 200, 190, 0.4), inset 0 0 12px 4px rgba(0, 200, 190, 0.3);
+}
+
+:root .lamp-ground-rings .ring-inner {
+  border-color: rgba(0, 200, 190, 1);
+  box-shadow: 0 0 18px 6px rgba(0, 200, 190, 0.9), 0 0 36px 12px rgba(0, 200, 190, 0.45), inset 0 0 10px 3px rgba(0, 200, 190, 0.35);
+}
+
+:root .lamp-ground-glow {
+  background: radial-gradient(ellipse at center, rgba(0, 210, 195, 0.8) 0%, rgba(0, 190, 175, 0.4) 55%, transparent 75%);
+}
+
 @keyframes groundRipple {
-  0%   { opacity: 0.9; transform: translate(-50%, -50%) scale(0.95); }
-  50%  { opacity: 0.5; }
-  100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.05); }
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(0.95); }
+  50%  { opacity: 0.6; }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
 }
 
 @keyframes glowPulse {
-  from { opacity: 0.5; transform: translateX(-50%) scaleX(1); }
+  from { opacity: 0.6; transform: translateX(-50%) scaleX(1); }
   to   { opacity: 1;   transform: translateX(-50%) scaleX(1.1); }
 }
 
