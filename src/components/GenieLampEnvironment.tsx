@@ -1,41 +1,18 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 
-/**
- * GenieLampEnvironment - Magical cosmic effects around the genie lamp.
- * Pure CSS/HTML overlay. Does NOT touch the lamp in any way.
- * pointer-events: none on everything.
- */
-
-interface Particle {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  delay: number;
-  duration: number;
-  color: string;
-  opacity: number;
-}
-
-const PARTICLE_COLORS = ["#ffffff", "#22d3ee", "#2dd4bf", "#fef3c7"];
-
-function generateParticles(count: number): Particle[] {
-  return Array.from({ length: count }, (_, i) => ({
-    id: i,
-    // Cone shape: narrower at bottom (spout area), wider at top
-    x: 30 + Math.random() * 220,
-    y: 20 + Math.random() * 200,
-    size: 1.5 + Math.random() * 3.5,
-    delay: Math.random() * 8,
-    duration: 4 + Math.random() * 6,
-    color: PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)],
-    opacity: 0.4 + Math.random() * 0.6,
-  }));
-}
+const SPARKLES = [
+  { top: '20%', left: '60%', tx: '15px', ty: '-50px', duration: '2.8s', delay: '0s',   size: '4px', color: '#fff' },
+  { top: '35%', left: '75%', tx: '25px', ty: '-40px', duration: '3.2s', delay: '0.5s', size: '3px', color: '#ffe066' },
+  { top: '50%', left: '30%', tx: '-20px',ty: '-55px', duration: '2.5s', delay: '1s',   size: '5px', color: '#fff' },
+  { top: '25%', left: '45%', tx: '10px', ty: '-45px', duration: '3.5s', delay: '1.5s', size: '3px', color: '#ffe066' },
+  { top: '60%', left: '65%', tx: '30px', ty: '-35px', duration: '2.9s', delay: '0.8s', size: '4px', color: '#aff' },
+  { top: '40%', left: '20%', tx: '-15px',ty: '-60px', duration: '3.1s', delay: '0.3s', size: '3px', color: '#fff' },
+  { top: '15%', left: '80%', tx: '20px', ty: '-30px', duration: '2.6s', delay: '2s',   size: '5px', color: '#ffe066' },
+  { top: '55%', left: '50%', tx: '-10px',ty: '-50px', duration: '3.4s', delay: '1.2s', size: '3px', color: '#fff' },
+];
 
 export const GenieLampEnvironment: React.FC = () => {
   const [visible, setVisible] = useState(true);
-  const particles = useMemo(() => generateParticles(45), []);
 
   useEffect(() => {
     const handleEmerged = () => setVisible(false);
@@ -63,38 +40,31 @@ export const GenieLampEnvironment: React.FC = () => {
         transition: "opacity 0.6s ease",
       }}
     >
-      {/* EFFECT 4 — Background Aura */}
+      {/* Background Aura */}
       <div className="genie-env-bg-aura" />
 
-      {/* EFFECT 2 — Floating Cosmic Sparkles */}
-      <div className="genie-env-sparkle-field">
-        {particles.map((p) => (
-          <div
-            key={p.id}
-            className="genie-env-sparkle"
-            style={{
-              left: p.x,
-              top: p.y,
-              width: p.size,
-              height: p.size,
-              backgroundColor: p.color,
-              boxShadow: `0 0 ${p.size * 2}px ${p.color}, 0 0 ${p.size * 4}px ${p.color}`,
-              animationDelay: `${p.delay}s`,
-              animationDuration: `${p.duration}s`,
-              "--sparkle-opacity": p.opacity,
-            } as React.CSSProperties}
-          />
-        ))}
-      </div>
-
-      {/* EFFECT 3 — Spout Mist Glow */}
+      {/* Spout Mist Glow */}
       <div className="genie-env-spout-mist" />
 
-      {/* EFFECT 1 — Magic Ground Ring */}
-      <div className="genie-env-ground-ring">
-        <div className="genie-env-ring-inner" />
-        <div className="genie-env-ring-outer" />
-      </div>
+      {/* Sparkles overlay */}
+      {SPARKLES.map((s, i) => (
+        <span
+          key={i}
+          className="lamp-sparkle"
+          style={{
+            top: s.top,
+            left: s.left,
+            width: s.size,
+            height: s.size,
+            background: s.color,
+            boxShadow: `0 0 6px 2px ${s.color}`,
+            '--tx': s.tx,
+            '--ty': s.ty,
+            '--duration': s.duration,
+            '--delay': s.delay,
+          } as React.CSSProperties}
+        />
+      ))}
     </div>
   );
 };
