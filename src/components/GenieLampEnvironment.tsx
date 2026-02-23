@@ -46,6 +46,14 @@ export const GenieLampEnvironment: React.FC = () => {
       {/* Spout Mist Glow */}
       <div className="genie-env-spout-mist" />
 
+      {/* Ground ripple rings */}
+      <div className="lamp-ground-rings">
+        <span className="ring-inner" />
+      </div>
+
+      {/* Central ground glow */}
+      <div className="lamp-ground-glow" />
+
       {/* Sparkles overlay */}
       {SPARKLES.map((s, i) => (
         <span
