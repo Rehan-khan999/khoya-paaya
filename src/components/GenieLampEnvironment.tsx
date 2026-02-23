@@ -30,10 +30,10 @@ export const GenieLampEnvironment: React.FC = () => {
       className="genie-env-container"
       style={{
         position: "fixed",
-        bottom: 0,
-        right: 0,
-        width: "340px",
-        height: "360px",
+        bottom: 10,
+        right: 10,
+        width: "420px",
+        height: "420px",
         pointerEvents: "none",
         zIndex: 4,
         opacity: visible ? 1 : 0,
