@@ -758,3 +758,117 @@
   80% { opacity: 1; transform: translateY(-20px); }
   100% { opacity: 0; transform: translateY(-40px); }
 }
+
+/* ============================================
+   GENIE LAMP ENVIRONMENT EFFECTS
+   ============================================ */
+
+/* Background Aura - large radial glow behind lamp */
+.genie-env-bg-aura {
+  position: absolute;
+  bottom: 40px;
+  right: 20px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34,211,238,0.25) 0%, rgba(45,212,191,0.12) 40%, transparent 70%);
+  filter: blur(30px);
+  animation: genieEnvAuraPulse 4s ease-in-out infinite;
+}
+
+@keyframes genieEnvAuraPulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(1.05); }
+}
+
+/* Sparkle Field */
+.genie-env-sparkle-field {
+  position: absolute;
+  inset: 0;
+}
+
+.genie-env-sparkle {
+  position: absolute;
+  border-radius: 50%;
+  animation: genieEnvSparkleFloat linear infinite;
+}
+
+@keyframes genieEnvSparkleFloat {
+  0% { opacity: 0; transform: translateY(0) scale(0.3); }
+  10% { opacity: var(--sparkle-opacity, 0.6); transform: translateY(-5px) scale(1); }
+  40% { opacity: calc(var(--sparkle-opacity, 0.6) * 0.7); transform: translateY(-30px) scale(0.8); }
+  70% { opacity: var(--sparkle-opacity, 0.6); transform: translateY(-55px) scale(1.1); }
+  100% { opacity: 0; transform: translateY(-80px) scale(0.2); }
+}
+
+/* Star-shape sparkle using clip-path for some particles */
+.genie-env-sparkle:nth-child(4n) {
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+/* Spout Mist Glow */
+.genie-env-spout-mist {
+  position: absolute;
+  bottom: 120px;
+  right: 80px;
+  width: 120px;
+  height: 140px;
+  background: radial-gradient(ellipse at bottom center, rgba(34,211,238,0.3) 0%, rgba(255,255,255,0.1) 40%, transparent 70%);
+  filter: blur(20px);
+  animation: genieEnvMistFlow 5s ease-in-out infinite;
+}
+
+@keyframes genieEnvMistFlow {
+  0%, 100% { opacity: 0.3; transform: translateY(0) scaleY(1); }
+  50% { opacity: 0.5; transform: translateY(-10px) scaleY(1.1); }
+}
+
+/* Ground Ring Container */
+.genie-env-ground-ring {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  width: 200px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Inner Ring - thin bright line */
+.genie-env-ring-inner {
+  position: absolute;
+  width: 180px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid rgba(34,211,238,0.5);
+  box-shadow: 0 0 12px rgba(34,211,238,0.4), inset 0 0 8px rgba(34,211,238,0.15);
+  animation: genieEnvRingSpin 20s linear infinite;
+}
+
+/* Outer Ring - soft glow */
+.genie-env-ring-outer {
+  position: absolute;
+  width: 210px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid rgba(45,212,191,0.25);
+  box-shadow: 0 0 30px rgba(34,211,238,0.3), 0 0 60px rgba(45,212,191,0.15);
+  animation: genieEnvRingSpin 25s linear infinite reverse;
+}
+
+@keyframes genieEnvRingSpin {
+  0% { transform: rotateZ(0deg); }
+  100% { transform: rotateZ(360deg); }
+}
+
+/* Ground ring breathing */
+.genie-env-ring-inner,
+.genie-env-ring-outer {
+  animation: genieEnvRingSpin 20s linear infinite, genieEnvRingBreathe 3s ease-in-out infinite;
+}
+
+@keyframes genieEnvRingBreathe {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.85; }
+}
