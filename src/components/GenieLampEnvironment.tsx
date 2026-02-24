@@ -38,6 +38,7 @@ export const GenieLampEnvironment: React.FC = () => {
         zIndex: 4,
         opacity: visible ? 1 : 0,
         transition: "opacity 0.6s ease",
+        overflow: "visible",
       }}
     >
       {/* Background Aura */}
@@ -46,13 +47,17 @@ export const GenieLampEnvironment: React.FC = () => {
       {/* Spout Mist Glow */}
       <div className="genie-env-spout-mist" />
 
-      {/* Ground ripple rings */}
-      <div className="lamp-ground-rings">
-        <span className="ring-inner" />
+      {/* Ground portal rings */}
+      <div className="lamp-portal-rings">
+        {/* Outer ring */}
+        <div className="portal-ring portal-ring-outer" />
+        {/* Middle ring */}
+        <div className="portal-ring portal-ring-middle" />
+        {/* Inner ring */}
+        <div className="portal-ring portal-ring-inner" />
+        {/* Center glow */}
+        <div className="portal-center-glow" />
       </div>
-
-      {/* Central ground glow */}
-      <div className="lamp-ground-glow" />
 
       {/* Sparkles overlay */}
       {SPARKLES.map((s, i) => (
