@@ -128,7 +128,7 @@ export const GenieLampOverlay: React.FC = () => {
       {/* PART 3 — Instruction Text (removed) */}
 
       {/* Existing hint text */}
-      <div className="genie-hint-text">✨ Click the lamp to summon your AI Genie</div>
+      <div className="genie-hint-text"><span className="genie-hint-star">🌟</span> Click the lamp to summon your AI Genie</div>
 
       {/* Existing Pulse ring */}
       <div className="genie-pulse-ring" />

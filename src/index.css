@@ -703,14 +703,25 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  border: 3px solid rgba(245,158,11,0.85);
-  box-shadow: 0 0 24px rgba(245,158,11,0.6), inset 0 0 16px rgba(245,158,11,0.2);
+  border: 3px solid rgba(255, 223, 100, 0.9);
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.7), 0 0 40px rgba(245, 158, 11, 0.4), inset 0 0 16px rgba(255, 223, 100, 0.25);
   animation: geniePulse 2s infinite;
 }
 
 @keyframes geniePulse {
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(1.7); opacity: 0; }
+}
+
+/* ---- Hint Star ---- */
+.genie-hint-star {
+  filter: brightness(1.5) drop-shadow(0 0 6px rgba(255, 200, 50, 1)) drop-shadow(0 0 14px rgba(251, 191, 36, 0.8));
+  animation: starPulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes starPulse {
+  0% { filter: brightness(1.5) drop-shadow(0 0 6px rgba(255, 200, 50, 1)) drop-shadow(0 0 14px rgba(251, 191, 36, 0.8)); }
+  100% { filter: brightness(2) drop-shadow(0 0 10px rgba(255, 220, 80, 1)) drop-shadow(0 0 22px rgba(251, 191, 36, 1)); }
 }
 
 /* ---- Glow Layer ---- */
