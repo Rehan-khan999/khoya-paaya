@@ -26,58 +26,145 @@ export const GenieLampEnvironment: React.FC = () => {
   }, []);
 
   return (
-    <div
-      className="genie-env-container"
-      style={{
-        position: "fixed",
-        bottom: 10,
-        right: 10,
-        width: "420px",
-        height: "420px",
-        pointerEvents: "none",
-        zIndex: 4,
-        opacity: visible ? 1 : 0,
-        transition: "opacity 0.6s ease",
-        overflow: "visible",
-      }}
-    >
-      {/* Background Aura */}
-      <div className="genie-env-bg-aura" />
+    <>
+      <style>{`
+        @keyframes ringPulse {
+          0%, 100% { opacity: 0.75; transform: translate(-50%, -50%) scaleX(1); }
+          50%       { opacity: 1;   transform: translate(-50%, -50%) scaleX(1.05); }
+        }
+        @keyframes centerGlowPulse {
+          0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+          50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.08); }
+        }
+        @keyframes sparkleFloat {
+          0%   { opacity: 0; transform: translate(0, 0) scale(0.5); }
+          30%  { opacity: 1; }
+          70%  { opacity: 0.8; }
+          100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.2); }
+        }
+        .lamp-sparkle {
+          position: absolute;
+          border-radius: 50%;
+          pointer-events: none;
+          animation: sparkleFloat var(--duration, 3s) ease-in-out infinite var(--delay, 0s);
+          opacity: 0;
+        }
+      `}</style>
 
-      {/* Spout Mist Glow */}
-      <div className="genie-env-spout-mist" />
+      {/* 
+        This wrapper is fixed, same as before — DO NOT change bottom/right/width/height.
+        All ring positioning is relative to this container.
+        The lamp 3D model sits at roughly bottom-left of this container.
+        Rings are anchored to where the lamp base sits: ~35% from left, ~88% from top.
+      */}
+      <div
+        style={{
+          position: "fixed",
+          bottom: 10,
+          right: 10,
+          width: "420px",
+          height: "420px",
+          pointerEvents: "none",
+          zIndex: 4,
+          opacity: visible ? 1 : 0,
+          transition: "opacity 0.6s ease",
+          overflow: "visible",
+        }}
+      >
+        {/* Background Aura */}
+        <div className="genie-env-bg-aura" />
 
-      {/* Ground portal rings */}
-      <div className="lamp-portal-rings">
-        {/* Outer ring */}
-        <div className="portal-ring portal-ring-outer" />
-        {/* Middle ring */}
-        <div className="portal-ring portal-ring-middle" />
-        {/* Inner ring */}
-        <div className="portal-ring portal-ring-inner" />
-        {/* Center glow */}
-        <div className="portal-center-glow" />
-      </div>
+        {/* Spout Mist Glow */}
+        <div className="genie-env-spout-mist" />
 
-      {/* Sparkles overlay */}
-      {SPARKLES.map((s, i) => (
-        <span
-          key={i}
-          className="lamp-sparkle"
+        {/* 
+          GROUND PORTAL RINGS
+          Anchor point: where the lamp base sits inside the 420x420 container.
+          left: ~35% of 420px = ~147px from right edge → tweak leftAnchor if needed
+          top:  ~85% of 420px = ~357px from top       → tweak topAnchor if needed
+        */}
+        <div
           style={{
-            top: s.top,
-            left: s.left,
-            width: s.size,
-            height: s.size,
-            background: s.color,
-            boxShadow: `0 0 6px 2px ${s.color}`,
-            '--tx': s.tx,
-            '--ty': s.ty,
-            '--duration': s.duration,
-            '--delay': s.delay,
-          } as React.CSSProperties}
-        />
-      ))}
-    </div>
+            position: "absolute",
+            left: "35%",   /* ← tweak this if rings are left/right of lamp base */
+            top: "85%",    /* ← tweak this if rings are above/below lamp base */
+            width: 0,
+            height: 0,
+            pointerEvents: "none",
+          }}
+        >
+          {/* Outer ring */}
+          <div style={{
+            position: "absolute",
+            top: "50%", left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "220px",
+            height: "55px",
+            borderRadius: "50%",
+            border: "1.5px solid rgba(0, 230, 210, 0.7)",
+            boxShadow: "0 0 12px 4px rgba(0, 230, 210, 0.35), inset 0 0 8px 2px rgba(0, 230, 210, 0.1)",
+            animation: "ringPulse 3s ease-in-out infinite 0s",
+          }} />
+
+          {/* Middle ring */}
+          <div style={{
+            position: "absolute",
+            top: "50%", left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "150px",
+            height: "37px",
+            borderRadius: "50%",
+            border: "1.5px solid rgba(0, 230, 210, 0.8)",
+            boxShadow: "0 0 10px 3px rgba(0, 230, 210, 0.4), inset 0 0 6px 2px rgba(0, 230, 210, 0.15)",
+            animation: "ringPulse 3s ease-in-out infinite 0.6s",
+          }} />
+
+          {/* Inner ring */}
+          <div style={{
+            position: "absolute",
+            top: "50%", left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "80px",
+            height: "20px",
+            borderRadius: "50%",
+            border: "1.5px solid rgba(0, 230, 210, 0.9)",
+            boxShadow: "0 0 10px 4px rgba(0, 230, 210, 0.5), inset 0 0 5px 1px rgba(0, 230, 210, 0.2)",
+            animation: "ringPulse 3s ease-in-out infinite 1.2s",
+          }} />
+
+          {/* Center glow fill */}
+          <div style={{
+            position: "absolute",
+            top: "50%", left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "130px",
+            height: "32px",
+            borderRadius: "50%",
+            background: "radial-gradient(ellipse at center, rgba(0,230,210,0.45) 0%, rgba(0,200,185,0.2) 50%, transparent 75%)",
+            animation: "centerGlowPulse 2.5s ease-in-out infinite alternate",
+          }} />
+        </div>
+
+        {/* Sparkles */}
+        {SPARKLES.map((s, i) => (
+          <span
+            key={i}
+            className="lamp-sparkle"
+            style={{
+              top: s.top,
+              left: s.left,
+              width: s.size,
+              height: s.size,
+              background: s.color,
+              boxShadow: `0 0 6px 2px ${s.color}`,
+              '--tx': s.tx,
+              '--ty': s.ty,
+              '--duration': s.duration,
+              '--delay': s.delay,
+            } as React.CSSProperties}
+          />
+        ))}
+      </div>
+    </>
   );
 };
