@@ -71,23 +71,16 @@ export const GenieLampEnvironment: React.FC = () => {
           overflow: "visible",
         }}
       >
-        {/* Background Aura */}
-        <div className="genie-env-bg-aura" />
-
-        {/* Spout Mist Glow */}
-        <div className="genie-env-spout-mist" />
-
         {/* 
           GROUND PORTAL RINGS
-          Anchor point: where the lamp base sits inside the 420x420 container.
-          left: ~35% of 420px = ~147px from right edge → tweak leftAnchor if needed
-          top:  ~85% of 420px = ~357px from top       → tweak topAnchor if needed
+          left: center of lamp base horizontally
+          top: bottom feet of lamp
         */}
         <div
           style={{
             position: "absolute",
-            left: "35%",   /* ← tweak this if rings are left/right of lamp base */
-            top: "85%",    /* ← tweak this if rings are above/below lamp base */
+            left: "35%",   /* ← tweak if rings are left/right of lamp base */
+            top: "95%",    /* ← tweak if rings are above/below lamp feet */
             width: 0,
             height: 0,
             pointerEvents: "none",
