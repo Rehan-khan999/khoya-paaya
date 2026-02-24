@@ -671,16 +671,28 @@
   right: 20px;
   font-size: 17px;
   font-weight: 800;
-  color: #fbbf24;
-  text-shadow: 0 0 24px rgba(251,191,36,1), 0 0 10px rgba(251,191,36,0.8), 0 2px 8px rgba(0,0,0,0.9);
-  animation: genieHintFloat 3s ease-in-out infinite;
+  color: #fff8e1;
+  text-shadow:
+    0 0 6px rgba(255,255,255,1),
+    0 0 16px rgba(255,223,100,1),
+    0 0 30px rgba(251,191,36,1),
+    0 0 50px rgba(251,191,36,0.8),
+    0 0 80px rgba(245,158,11,0.5),
+    0 2px 8px rgba(0,0,0,0.9);
+  animation: genieHintFloat 3s ease-in-out infinite, genieHintGlow 2s ease-in-out infinite alternate;
   opacity: 1;
   white-space: nowrap;
+  letter-spacing: 0.5px;
 }
 
 @keyframes genieHintFloat {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
+}
+
+@keyframes genieHintGlow {
+  0% { text-shadow: 0 0 6px rgba(255,255,255,1), 0 0 16px rgba(255,223,100,1), 0 0 30px rgba(251,191,36,1), 0 0 50px rgba(251,191,36,0.8), 0 0 80px rgba(245,158,11,0.5), 0 2px 8px rgba(0,0,0,0.9); }
+  100% { text-shadow: 0 0 10px rgba(255,255,255,1), 0 0 24px rgba(255,223,100,1), 0 0 45px rgba(251,191,36,1), 0 0 70px rgba(251,191,36,0.9), 0 0 100px rgba(245,158,11,0.6), 0 2px 8px rgba(0,0,0,0.9); }
 }
 
 /* ---- Pulse Ring ---- */
