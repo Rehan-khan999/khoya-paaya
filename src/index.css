@@ -766,7 +766,7 @@
 /* Ground ripple rings beneath the lamp */
 .lamp-ground-rings {
   position: absolute;
-  bottom: 20px;
+  bottom: 5px;
   left: 38%;
   transform: translateX(-50%);
   width: 220px;
@@ -817,7 +817,7 @@
 /* Central glow fill beneath lamp */
 .lamp-ground-glow {
   position: absolute;
-  bottom: 25px;
+  bottom: 10px;
   left: 38%;
   transform: translateX(-50%);
   width: 180px;
