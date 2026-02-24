@@ -92,12 +92,12 @@ export const GenieLampEnvironment: React.FC = () => {
             width: "220px",
             height: "55px",
             borderRadius: "50%",
-            border: "2px solid rgba(0, 245, 225, 1)",
+            border: "2px solid rgba(255, 255, 255, 1)",
             boxShadow: `
-              0 0 8px 3px rgba(0, 245, 225, 1),
-              0 0 20px 8px rgba(0, 230, 210, 0.8),
-              0 0 40px 14px rgba(0, 230, 210, 0.4),
-              inset 0 0 14px 5px rgba(0, 230, 210, 0.35)
+              0 0 8px 3px rgba(255, 255, 255, 1),
+              0 0 20px 8px rgba(220, 240, 255, 0.85),
+              0 0 40px 14px rgba(200, 230, 255, 0.5),
+              inset 0 0 14px 5px rgba(255, 255, 255, 0.3)
             `,
             animation: "ringPulse 3s ease-in-out infinite 0s",
           }} />
@@ -110,12 +110,12 @@ export const GenieLampEnvironment: React.FC = () => {
             width: "150px",
             height: "37px",
             borderRadius: "50%",
-            border: "2px solid rgba(0, 245, 225, 1)",
+            border: "2px solid rgba(255, 255, 255, 1)",
             boxShadow: `
-              0 0 8px 3px rgba(0, 245, 225, 1),
-              0 0 22px 8px rgba(0, 230, 210, 0.85),
-              0 0 42px 14px rgba(0, 230, 210, 0.45),
-              inset 0 0 12px 4px rgba(0, 230, 210, 0.35)
+              0 0 8px 3px rgba(255, 255, 255, 1),
+              0 0 22px 8px rgba(220, 240, 255, 0.9),
+              0 0 42px 14px rgba(200, 230, 255, 0.55),
+              inset 0 0 12px 4px rgba(255, 255, 255, 0.3)
             `,
             animation: "ringPulse 3s ease-in-out infinite 0.6s",
           }} />
@@ -128,12 +128,12 @@ export const GenieLampEnvironment: React.FC = () => {
             width: "80px",
             height: "20px",
             borderRadius: "50%",
-            border: "2px solid rgba(0, 255, 235, 1)",
+            border: "2px solid rgba(255, 255, 255, 1)",
             boxShadow: `
-              0 0 10px 4px rgba(0, 255, 235, 1),
-              0 0 25px 10px rgba(0, 230, 210, 0.9),
-              0 0 50px 16px rgba(0, 230, 210, 0.5),
-              inset 0 0 10px 4px rgba(0, 230, 210, 0.4)
+              0 0 10px 4px rgba(255, 255, 255, 1),
+              0 0 25px 10px rgba(220, 240, 255, 0.95),
+              0 0 50px 16px rgba(200, 230, 255, 0.6),
+              inset 0 0 10px 4px rgba(255, 255, 255, 0.35)
             `,
             animation: "ringPulse 3s ease-in-out infinite 1.2s",
           }} />
@@ -146,7 +146,7 @@ export const GenieLampEnvironment: React.FC = () => {
             width: "140px",
             height: "35px",
             borderRadius: "50%",
-            background: "radial-gradient(ellipse at center, rgba(0,255,230,0.9) 0%, rgba(0,230,210,0.55) 45%, transparent 75%)",
+            background: "radial-gradient(ellipse at center, rgba(255,255,255,0.85) 0%, rgba(220,240,255,0.5) 45%, transparent 75%)",
             animation: "centerGlowPulse 2.5s ease-in-out infinite alternate",
           }} />
         </div>
