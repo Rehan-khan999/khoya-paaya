@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,6 +14,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { CalendarIcon, MapPinIcon, ImageIcon, CheckCircleIcon, PlusIcon, TrashIcon, HelpCircleIcon } from 'lucide-react';
 import { findPotentialMatches, notifyNearbyUsers } from '@/services/notificationService';
+import { useDateValidation } from '@/hooks/useDateValidation';
 
 const categories = [
   'Electronics',
@@ -31,6 +32,8 @@ const PostFound = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { toast } = useToast();
+  const { today, minDate, validateDate } = useDateValidation();
+  const [dateError, setDateError] = useState<string | null>(null);
   
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -103,6 +106,14 @@ const PostFound = () => {
       });
       return;
     }
+
+    // Date validation
+    const dateErr = validateDate(formData.dateFound);
+    if (dateErr) {
+      setDateError(dateErr);
+      return;
+    }
+    setDateError(null);
 
     setIsLoading(true);
 
@@ -232,14 +243,23 @@ const PostFound = () => {
               <div>
                 <Label htmlFor="dateFound" className="flex items-center gap-2">
                   <CalendarIcon className="h-4 w-4" />
-                  Date Found
+                  Date Found *
                 </Label>
                 <Input
                   id="dateFound"
                   type="date"
                   value={formData.dateFound}
-                  onChange={(e) => setFormData(prev => ({ ...prev, dateFound: e.target.value }))}
+                  min={minDate}
+                  max={today}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setFormData(prev => ({ ...prev, dateFound: val }));
+                    setDateError(validateDate(val));
+                  }}
                 />
+                {dateError && (
+                  <p className="text-sm text-destructive mt-1">{dateError}</p>
+                )}
               </div>
             </div>
 
