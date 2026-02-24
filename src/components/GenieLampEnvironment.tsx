@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
 
+// Sparkles scattered around upper area of the environment
 const SPARKLES = [
-  { top: '20%', left: '60%', tx: '15px', ty: '-50px', duration: '2.8s', delay: '0s',   size: '4px', color: '#fff' },
-  { top: '35%', left: '75%', tx: '25px', ty: '-40px', duration: '3.2s', delay: '0.5s', size: '3px', color: '#ffe066' },
-  { top: '50%', left: '30%', tx: '-20px',ty: '-55px', duration: '2.5s', delay: '1s',   size: '5px', color: '#fff' },
-  { top: '25%', left: '45%', tx: '10px', ty: '-45px', duration: '3.5s', delay: '1.5s', size: '3px', color: '#ffe066' },
-  { top: '60%', left: '65%', tx: '30px', ty: '-35px', duration: '2.9s', delay: '0.8s', size: '4px', color: '#aff' },
-  { top: '40%', left: '20%', tx: '-15px',ty: '-60px', duration: '3.1s', delay: '0.3s', size: '3px', color: '#fff' },
-  { top: '15%', left: '80%', tx: '20px', ty: '-30px', duration: '2.6s', delay: '2s',   size: '5px', color: '#ffe066' },
-  { top: '55%', left: '50%', tx: '-10px',ty: '-50px', duration: '3.4s', delay: '1.2s', size: '3px', color: '#fff' },
+  { top: '15%', left: '55%', tx: '10px',  ty: '-45px', duration: '2.8s', delay: '0s',   size: '4px', color: '#fff' },
+  { top: '25%', left: '70%', tx: '20px',  ty: '-40px', duration: '3.2s', delay: '0.5s', size: '3px', color: '#ffe066' },
+  { top: '40%', left: '80%', tx: '25px',  ty: '-35px', duration: '2.5s', delay: '1s',   size: '5px', color: '#fff' },
+  { top: '20%', left: '40%', tx: '-15px', ty: '-50px', duration: '3.5s', delay: '1.5s', size: '3px', color: '#ffe066' },
+  { top: '35%', left: '25%', tx: '-20px', ty: '-40px', duration: '2.9s', delay: '0.8s', size: '4px', color: '#aff' },
+  { top: '10%', left: '60%', tx: '15px',  ty: '-55px', duration: '3.1s', delay: '0.3s', size: '3px', color: '#fff' },
+  { top: '30%', left: '85%', tx: '20px',  ty: '-30px', duration: '2.6s', delay: '2s',   size: '5px', color: '#ffe066' },
+  { top: '45%', left: '45%', tx: '-10px', ty: '-45px', duration: '3.4s', delay: '1.2s', size: '3px', color: '#fff' },
+  // Extra sparkles rising from ring area (bottom of container)
+  { top: '80%', left: '30%', tx: '-8px',  ty: '-60px', duration: '2.4s', delay: '0.2s', size: '4px', color: '#00f0dc' },
+  { top: '82%', left: '38%', tx: '12px',  ty: '-70px', duration: '2.7s', delay: '0.7s', size: '3px', color: '#fff' },
+  { top: '85%', left: '22%', tx: '-15px', ty: '-65px', duration: '3.0s', delay: '1.1s', size: '3px', color: '#ffe066' },
+  { top: '78%', left: '45%', tx: '8px',   ty: '-55px', duration: '2.3s', delay: '1.8s', size: '4px', color: '#00f0dc' },
+  { top: '83%', left: '15%', tx: '-10px', ty: '-50px', duration: '2.9s', delay: '0.4s', size: '3px', color: '#fff' },
+  { top: '80%', left: '52%', tx: '18px',  ty: '-60px', duration: '3.3s', delay: '0.9s', size: '3px', color: '#aff' },
 ];
 
 export const GenieLampEnvironment: React.FC = () => {
@@ -29,18 +37,18 @@ export const GenieLampEnvironment: React.FC = () => {
     <>
       <style>{`
         @keyframes ringPulse {
-          0%, 100% { opacity: 0.75; transform: translate(-50%, -50%) scaleX(1); }
-          50%       { opacity: 1;   transform: translate(-50%, -50%) scaleX(1.05); }
+          0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scaleX(1); }
+          50%       { opacity: 1;   transform: translate(-50%, -50%) scaleX(1.06); }
         }
         @keyframes centerGlowPulse {
-          0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-          50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.08); }
+          0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+          50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.1); }
         }
         @keyframes sparkleFloat {
-          0%   { opacity: 0; transform: translate(0, 0) scale(0.5); }
-          30%  { opacity: 1; }
-          70%  { opacity: 0.8; }
-          100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.2); }
+          0%   { opacity: 0; transform: translate(0, 0) scale(0.4); }
+          25%  { opacity: 1; }
+          75%  { opacity: 0.7; }
+          100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.3); }
         }
         .lamp-sparkle {
           position: absolute;
@@ -51,12 +59,6 @@ export const GenieLampEnvironment: React.FC = () => {
         }
       `}</style>
 
-      {/* 
-        This wrapper is fixed, same as before — DO NOT change bottom/right/width/height.
-        All ring positioning is relative to this container.
-        The lamp 3D model sits at roughly bottom-left of this container.
-        Rings are anchored to where the lamp base sits: ~35% from left, ~88% from top.
-      */}
       <div
         style={{
           position: "fixed",
@@ -71,16 +73,12 @@ export const GenieLampEnvironment: React.FC = () => {
           overflow: "visible",
         }}
       >
-        {/* 
-          GROUND PORTAL RINGS
-          left: center of lamp base horizontally
-          top: bottom feet of lamp
-        */}
+        {/* GROUND PORTAL RINGS — restored to working position */}
         <div
           style={{
             position: "absolute",
-            left: "22%",   /* ← tweak if rings are left/right of lamp base */
-            top: "95%",    /* ← tweak if rings are above/below lamp feet */
+            left: "35%",
+            top: "95%",
             width: 0,
             height: 0,
             pointerEvents: "none",
@@ -94,8 +92,13 @@ export const GenieLampEnvironment: React.FC = () => {
             width: "220px",
             height: "55px",
             borderRadius: "50%",
-            border: "2px solid rgba(0, 240, 220, 1)",
-            boxShadow: "0 0 18px 6px rgba(0, 230, 210, 0.9), 0 0 35px 10px rgba(0, 230, 210, 0.5), inset 0 0 12px 4px rgba(0, 230, 210, 0.3)",
+            border: "2px solid rgba(0, 245, 225, 1)",
+            boxShadow: `
+              0 0 8px 3px rgba(0, 245, 225, 1),
+              0 0 20px 8px rgba(0, 230, 210, 0.8),
+              0 0 40px 14px rgba(0, 230, 210, 0.4),
+              inset 0 0 14px 5px rgba(0, 230, 210, 0.35)
+            `,
             animation: "ringPulse 3s ease-in-out infinite 0s",
           }} />
 
@@ -107,8 +110,13 @@ export const GenieLampEnvironment: React.FC = () => {
             width: "150px",
             height: "37px",
             borderRadius: "50%",
-            border: "2px solid rgba(0, 240, 220, 1)",
-            boxShadow: "0 0 18px 6px rgba(0, 230, 210, 0.95), 0 0 35px 10px rgba(0, 230, 210, 0.55), inset 0 0 10px 3px rgba(0, 230, 210, 0.3)",
+            border: "2px solid rgba(0, 245, 225, 1)",
+            boxShadow: `
+              0 0 8px 3px rgba(0, 245, 225, 1),
+              0 0 22px 8px rgba(0, 230, 210, 0.85),
+              0 0 42px 14px rgba(0, 230, 210, 0.45),
+              inset 0 0 12px 4px rgba(0, 230, 210, 0.35)
+            `,
             animation: "ringPulse 3s ease-in-out infinite 0.6s",
           }} />
 
@@ -120,8 +128,13 @@ export const GenieLampEnvironment: React.FC = () => {
             width: "80px",
             height: "20px",
             borderRadius: "50%",
-            border: "2px solid rgba(0, 245, 225, 1)",
-            boxShadow: "0 0 20px 8px rgba(0, 230, 210, 1), 0 0 40px 12px rgba(0, 230, 210, 0.6), inset 0 0 10px 3px rgba(0, 230, 210, 0.35)",
+            border: "2px solid rgba(0, 255, 235, 1)",
+            boxShadow: `
+              0 0 10px 4px rgba(0, 255, 235, 1),
+              0 0 25px 10px rgba(0, 230, 210, 0.9),
+              0 0 50px 16px rgba(0, 230, 210, 0.5),
+              inset 0 0 10px 4px rgba(0, 230, 210, 0.4)
+            `,
             animation: "ringPulse 3s ease-in-out infinite 1.2s",
           }} />
 
@@ -130,15 +143,15 @@ export const GenieLampEnvironment: React.FC = () => {
             position: "absolute",
             top: "50%", left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "130px",
-            height: "32px",
+            width: "140px",
+            height: "35px",
             borderRadius: "50%",
-            background: "radial-gradient(ellipse at center, rgba(0,240,220,0.8) 0%, rgba(0,210,195,0.45) 50%, transparent 75%)",
+            background: "radial-gradient(ellipse at center, rgba(0,255,230,0.9) 0%, rgba(0,230,210,0.55) 45%, transparent 75%)",
             animation: "centerGlowPulse 2.5s ease-in-out infinite alternate",
           }} />
         </div>
 
-        {/* Sparkles */}
+        {/* Sparkles — scattered + rising from ring area */}
         {SPARKLES.map((s, i) => (
           <span
             key={i}
@@ -149,7 +162,7 @@ export const GenieLampEnvironment: React.FC = () => {
               width: s.size,
               height: s.size,
               background: s.color,
-              boxShadow: `0 0 6px 2px ${s.color}`,
+              boxShadow: `0 0 8px 3px ${s.color}`,
               '--tx': s.tx,
               '--ty': s.ty,
               '--duration': s.duration,
